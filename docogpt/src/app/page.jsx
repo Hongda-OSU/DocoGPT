@@ -1,22 +1,46 @@
 "use client";
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import Modal from "@/components/modal/Modal";
 import styles from "./home.module.css";
 
 export default function Home() {
   const fileRef = useRef();
+  const allowedExtensions = ["pdf", "docx", "txt"];
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const uploadFile = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setUploadedFiles([...uploadedFiles, file.name]);
+      const fileName = file.name;
+      const fileExtension = fileName.split(".").pop().toLowerCase();
+      if (allowedExtensions.includes(fileExtension)) {
+        setUploadedFiles([...uploadedFiles, file.name]);
+      } else {
+        setErrorMessage("Only PDF, DOCX, or TXT files are allowed.");
+        setIsModalOpen(true);
+      }
     }
+    e.target.value = null;
+  };
+
+  const deleteFile = (fileName) => {
+    setUploadedFiles(uploadedFiles.filter((file) => file !== fileName));
+  };
+
+  const onModalClose = () => {
+    setErrorMessage("");
+    setIsModalOpen(false);
   };
 
   return (
     <main id={styles.container}>
-      <Modal />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={onModalClose}
+        errorMessage={errorMessage}
+      />
       <div id={styles.wrapper}>
         <section id={styles.sidebar}>
           <div className={styles["sidebar-wrapper"]}>
@@ -29,7 +53,12 @@ export default function Home() {
                 {uploadedFiles.map((fileName, idx) => (
                   <li key={idx} className={styles.listitem}>
                     <span className={styles.filename}>{fileName}</span>
-                    <button className={styles["delete-button"]}>x</button>
+                    <button
+                      className={styles["delete-button"]}
+                      onClick={() => deleteFile(fileName)}
+                    >
+                      x
+                    </button>
                   </li>
                 ))}
               </ul>

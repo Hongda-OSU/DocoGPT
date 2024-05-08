@@ -9,11 +9,62 @@
 }
 
 #modal {
-  width: 420px;
-  height: 320px;
+  width: 360px;
+  height: 240px;
   display: flex;
   flex-flow: column nowrap;
   margin: auto;
   background: #f8f8f8;
   border: 1px solid #000;
+  padding: 1em 1.5em;
+}
+
+#modal-header {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#warning {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+#close-button {
+  background: #0000;
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #f00;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-right: 1.5em;
+  white-space: nowrap;
+}
+
+#modal-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+#content {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  margin: auto;
 }

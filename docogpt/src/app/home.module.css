@@ -140,10 +140,6 @@
   white-space: nowrap;
 }
 
-.upload-button:active {
-  animation: click 0.1s ease-out;
-}
-
 #gpt {
   height: 100%;
   display: flex;
@@ -160,6 +156,7 @@
   display: flex;
   border: 1px solid #000;
   margin-bottom: 2.5em;
+  overflow-y: auto;
 }
 
 #input-wrapper {
@@ -169,14 +166,3 @@
   border: 1px solid #000;
 }
 
-@keyframes click {
-  0% {
-    transform: scale(1);
-  }
-  66% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
