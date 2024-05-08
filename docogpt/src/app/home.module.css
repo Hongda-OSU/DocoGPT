@@ -1,0 +1,182 @@
+#container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  background: #fff;
+  overflow: hidden;
+}
+
+#wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+#sidebar {
+  width: 300px;
+  height: 100vh;
+  display: flex;
+  background: #fffcfc;
+  padding: 20px;
+  border-right: 2px solid #e8e8e8;
+}
+
+.sidebar-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.name-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+  border-bottom: 1px solid #000;
+}
+
+.name {
+  position: relative;
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-align: center;
+  white-space: nowrap;
+  margin-bottom: 1em;
+}
+
+.ingested-document {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  margin-top: 1em;
+}
+
+.name2 {
+  position: relative;
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-align: center;
+  white-space: nowrap;
+  margin-left: 1em;
+}
+
+.listitem {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filename {
+  position: relative;
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-align: center;
+  white-space: nowrap;
+  margin-left: 2em;
+  margin-top: 0.5em;
+}
+
+.delete-button {
+  background: #0000;
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-right: 1.5em;
+  white-space: nowrap;
+}
+
+.upload-button {
+  position: absolute;
+  bottom: 0;
+  height: auto;
+  background: #0000;
+  border: 1px solid #000;
+  margin-bottom: 1.5em;
+  padding: 0.7em 3em;
+  user-select: none;
+  cursor: pointer;
+}
+
+.button-text {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.upload-button:active {
+  animation: click 0.1s ease-out;
+}
+
+#gpt {
+  height: 100%;
+  display: flex;
+  flex-grow: 1;
+  flex-flow: column nowrap;
+  align-items: center;
+  background: #fff;
+  padding: 20px 60px;
+}
+
+#chat-wrapper {
+  flex: 1 1 auto;
+  width: 100%;
+  display: flex;
+  border: 1px solid #000;
+  margin-bottom: 2.5em;
+}
+
+#input-wrapper {
+  flex: 0 1 65px;
+  width: 100%;
+  display: flex;
+  border: 1px solid #000;
+}
+
+@keyframes click {
+  0% {
+    transform: scale(1);
+  }
+  66% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
