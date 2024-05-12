@@ -1,0 +1,10 @@
+name: hello world
+default_config:
+  model: "gpt-3.5-turbo"
+prompt:
+  !prompt PromptTemplate(input_variables=[], template="Please summarize the paragraph entered by the user without outputting anything but the summary.")
+# tools:
+#   - name: retrieve_table
+#     tool: !tool tools.retrieve_table
+#   - name: run_python
+#     tool: !tool tools.run_python

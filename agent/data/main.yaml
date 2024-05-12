@@ -1,0 +1,10 @@
+name: hello world
+default_config:
+  model: "gpt-4-0613"
+prompt:
+  !prompt PromptTemplate(input_variables=[], template="You are an AI assistant. You are helping a user with a task.")
+tools:
+  - name: retrieve_table
+    tool: !tool tools.retrieve_table
+  - name: run_python
+    tool: !tool tools.run_python

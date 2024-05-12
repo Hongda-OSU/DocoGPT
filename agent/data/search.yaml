@@ -1,0 +1,10 @@
+name: hello world
+default_config:
+  model: "gpt-4-0613"
+prompt:
+  !prompt PromptTemplate(input_variables=[], template="You are an AI assistant who can search content in Tree like structure. You MUST call function every time. you must run get_next at first. You can only call Search when user tell you to do that.")
+tools:
+  - name: search
+    tool: !tool tools.search
+  - name: get_next
+    tool: !tool tools.get_next
