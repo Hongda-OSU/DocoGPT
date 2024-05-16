@@ -1,12 +1,12 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState } from "react";
+import Sidebar from "@/components/sidebar/Sidebar";
 import Modal from "@/components/modal/Modal";
+import ChatWrapper from "@/components/chat-wrapper/ChatWrapper";
 import styles from "./home.module.css";
 
 export default function Home() {
-  const fileRef = useRef();
-  const allowedExtensions = ["pdf", "docx", "txt"];
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -15,18 +15,23 @@ export default function Home() {
     if (file) {
       const fileName = file.name;
       const fileExtension = fileName.split(".").pop().toLowerCase();
-      if (allowedExtensions.includes(fileExtension)) {
-        setUploadedFiles([...uploadedFiles, file.name]);
+      if (fileExtension === "pdf") {
+        if (uploadedFile) {
+          setErrorMessage("You can only upload one file at a time.");
+          setIsModalOpen(true);
+        } else {
+          setUploadedFile(file.name);
+        }
       } else {
-        setErrorMessage("Only PDF, DOCX, or TXT files are allowed.");
+        setErrorMessage("Only PDF format supported.");
         setIsModalOpen(true);
       }
     }
     e.target.value = null;
   };
 
-  const deleteFile = (fileName) => {
-    setUploadedFiles(uploadedFiles.filter((file) => file !== fileName));
+  const deleteFile = () => {
+    setUploadedFile(null);
   };
 
   const onModalClose = () => {
@@ -35,53 +40,19 @@ export default function Home() {
   };
 
   return (
-    <main id={styles.container}>
+    <main id={styles["doco-gpt"]}>
       <Modal
         isOpen={isModalOpen}
         onClose={onModalClose}
         errorMessage={errorMessage}
       />
       <div id={styles.wrapper}>
-        <section id={styles.sidebar}>
-          <div className={styles["sidebar-wrapper"]}>
-            <div className={styles["name-container"]}>
-              <p className={styles.name}>DocoGPT</p>
-            </div>
-            <div className={styles["ingested-document"]}>
-              <p className={styles.name2}>Injested Files</p>
-              <ul>
-                {uploadedFiles.map((fileName, idx) => (
-                  <li key={idx} className={styles.listitem}>
-                    <span className={styles.filename}>{fileName}</span>
-                    <button
-                      className={styles["delete-button"]}
-                      onClick={() => deleteFile(fileName)}
-                    >
-                      x
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <button
-              className={styles["upload-button"]}
-              onClick={() => fileRef.current.click()}
-            >
-              <p className={styles["button-text"]}>Upload File</p>
-              <input
-                onChange={uploadFile}
-                multiple={false}
-                ref={fileRef}
-                type="file"
-                hidden
-              />
-            </button>
-          </div>
-        </section>
-        <section id={styles.gpt}>
-          <div id={styles["chat-wrapper"]}></div>
-          <div id={styles["input-wrapper"]}></div>
-        </section>
+        <Sidebar
+          uploadFile={uploadFile}
+          deleteFile={deleteFile}
+          uploadedFile={uploadedFile}
+        />
+        <ChatWrapper />
       </div>
     </main>
   );
