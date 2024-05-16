@@ -14,17 +14,18 @@ global pos
 
 level = 0
 pos = 0
+graph = None
 
-f = Path("data/graph.pkl")
+# f = Path("data/graph.pkl")
 embd = embedding_functions.DefaultEmbeddingFunction()
-# client = chromadb.PersistentClient(path="data")
-db = Chroma(embedding_function=embd)
-if f.exists():
-    graph = pickle.load(open("data/graph.pkl", "rb"))
-else:
-    conf = YAMLConfig(file_path="data/sum.yaml")
-    conf.load()
-    sum_agent = AgentWU(config=conf)
-    parser = PDFParser(sum_agent)
-    graph = parser.from_file("data/test.pdf")
-    pickle.dump(graph, open("data/graph.pkl", "wb"))
+# # client = chromadb.PersistentClient(path="data")
+# db = Chroma(embedding_function=embd)
+# if f.exists():
+#     graph = pickle.load(open(f"data/{f.name}.pkl", "rb"))
+# else:
+#     conf = YAMLConfig(file_path="data/sum.yaml")
+#     conf.load()
+#     sum_agent = AgentWU(config=conf)
+#     parser = PDFParser(sum_agent)
+#     graph = parser.from_file("data/test.pdf")
+#     pickle.dump(graph, open("data/graph.pkl", "wb"))

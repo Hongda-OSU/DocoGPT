@@ -64,21 +64,24 @@ class AgentWU(BaseAgent):
                         "name": name,
                         "content": str(content),
                         })
-                    return content
+                    return True, content
                 except Exception as e:
+                    # raise e
                     self.history.append({
                         "role": "function", 
                         "name": name,
                         "content": str(e),
                         })
-                    return e
+                    return True, e
             else:
                 self.history.append({
                     "role": "user", 
                     "name": name,
                     "content": f"Function {name} not found",
                     })
-                return f"Function {name} not found"
+                return True, f"Function {name} not found"
+        else:
+            return False, None
                 
             
             

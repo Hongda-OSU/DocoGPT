@@ -2,7 +2,8 @@ from gptfunction import gptfunction
 import math
 import numpy as np
 from typing import Any
-from glob import graph, embd, level, pos
+# from glob import graph, embd, level, pos
+import glob
 from vectordb import Chroma
 
 @gptfunction
@@ -13,12 +14,11 @@ def search(query: str, right: str) -> int:
     :param query: query text
     :param right: Which Node you want enter. right=1 means enter right Node.
     """
-    db = Chroma(embedding_function=embd)
-    global level
-    global pos
+    db = Chroma(embedding_function=glob.embd)
     
-    pos = min(pos * 2 + int(right), len(graph[-1]))
-    db.add_texts([graph[-1][pos]])
+    
+    glob.pos = min(glob.pos * 2 + int(right), len(glob.graph[-1]))
+    db.add_texts([glob.graph[-1][glob.pos]])
     return [
         i.page_content for i in db.similarity_search(query, k=3)
     ]
@@ -46,19 +46,22 @@ def get_next(right: str) -> str:
 
     :param right: Which Node you want enter. right=1 means enter right Node.
     """
-    global graph
-    global level
-    global pos
+
+    # for i in glob.graph:
+    #     print(len(i))
     # print(level, pos)
-    level = level + 1
-    pos = pos * 2 + int(right)
-    pos = min(pos, len(graph[level]) - 1)
+    glob.level = glob.level + 1
+    glob.pos = glob.pos * 2 + int(right)
+    glob.pos = min(glob.pos, len(glob.graph[glob.level]) - 1)
     # print(level, pos)
-    l = pos * 2
-    r = min(pos * 2 + 1, len(graph[level + 1]) - 1)
-    ans = f"left:\n{graph[level + 1][l]}\nright:\n{graph[level + 1][r]}"
+    l = glob.pos * 2
+    r = min(glob.pos * 2 + 1, len(glob.graph[glob.level + 1]) - 1)
+    ans = f"left:\n{glob.graph[glob.level + 1][l]}\nright:\n{glob.graph[glob.level + 1][r]}"
     # print("call", ans)
-    if level == len(graph) - 2:
+    if glob.level == len(glob.graph) - 2:
         ans += "\nThis is the last step you can search, you MUST call search next time"
     return ans
     
+def get_graph():
+    
+    return glob.graph
