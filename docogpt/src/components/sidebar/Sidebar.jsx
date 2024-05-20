@@ -12,7 +12,7 @@ const Sidebar = ({ uploadFile, deleteFile, uploadedFile }) => {
           <p className="app-name">DocoGPT</p>
         </div>
         <div className="ingested-document">
-          <p className="injested-file">Injested File</p>
+          <p className="injested-file">Uploaded File:</p>
           {uploadedFile && (
             <div className="list-item">
               <span className="file-name">{uploadedFile}</span>
@@ -26,7 +26,7 @@ const Sidebar = ({ uploadFile, deleteFile, uploadedFile }) => {
           className="upload-button"
           onClick={() => fileRef.current.click()}
         >
-          <p className="button-text">Upload File</p>
+          <p className="button-text">Upload a File</p>
           <input
             onChange={uploadFile}
             multiple={false}

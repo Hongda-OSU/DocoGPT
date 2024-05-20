@@ -1,9 +1,19 @@
-import "./user-message.css"
+import "./user-message.css";
 
 const UserMessage = ({ message }) => {
-    return (
-    <div className="chat-message user-message">{message}</div>
-    )
-}
+  const msg = message.split("\n").map((line, idx) => (
+    <span key={idx}>
+      {line}
+      <br />
+    </span>
+  ));
 
-export default UserMessage
+  return (
+    <section className="user-message-container">
+      <p className="user-message-date">2.03 PM, 15 Nov</p>
+      <p className="user-message-content">{msg}</p>
+    </section>
+  );
+};
+
+export default UserMessage;

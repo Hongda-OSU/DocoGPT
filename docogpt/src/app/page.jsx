@@ -2,11 +2,14 @@
 import { useState } from "react";
 import Sidebar from "@/components/sidebar/Sidebar";
 import Modal from "@/components/modal/Modal";
-import ChatWrapper from "@/components/chat-wrapper/ChatWrapper";
+import ChatHistory from "@/components/chat-history/ChatHistory";
+import InputArea from "@/components/input-area/InputArea";
 import styles from "./home.module.css";
+
 
 export default function Home() {
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [chatHistory, setChatHistory] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -30,8 +33,15 @@ export default function Home() {
     e.target.value = null;
   };
 
-  const deleteFile = () => {
-    setUploadedFile(null);
+  const handleSendMessage = (message) => {
+    setChatHistory((history) => [...history, { type: "user", text: message }]);
+
+    setTimeout(() => {
+      setChatHistory((history) => [
+        ...history,
+        { type: "bot", text: "This is a predefined response from DocoGPT." },
+      ]);
+    }, 1000);
   };
 
   const onModalClose = () => {
@@ -40,19 +50,22 @@ export default function Home() {
   };
 
   return (
-    <main id={styles["doco-gpt"]}>
+    <main className={styles.container}>
       <Modal
         isOpen={isModalOpen}
         onClose={onModalClose}
         errorMessage={errorMessage}
       />
-      <div id={styles.wrapper}>
+      <div className={styles["doco-gpt"]}>
         <Sidebar
           uploadFile={uploadFile}
-          deleteFile={deleteFile}
+          deleteFile={() => setUploadedFile(null)}
           uploadedFile={uploadedFile}
         />
-        <ChatWrapper />
+        <section className={styles["chat-wrapper"]}>
+          <ChatHistory chatHistory={chatHistory} />
+          <InputArea onSendMessage={handleSendMessage} />
+        </section>
       </div>
     </main>
   );

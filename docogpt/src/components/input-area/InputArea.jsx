@@ -25,10 +25,14 @@ const InputArea = ({ onSendMessage }) => {
 
   const handleSendMessage = () => {
     if (docoInputRef.current) {
-      const message = docoInputRef.current.innerText;
-      if (message.trim() !== "") {
+      const message = docoInputRef.current.innerHTML
+        .replace(/<div>/g, "\n")
+        .replace(/<\/div>/g, "")
+        .replace(/<br>/g, "\n")
+        .trim();
+      if (message !== "") {
         onSendMessage(message);
-        docoInputRef.current.innerText = ""; 
+        docoInputRef.current.innerHTML = "";
       }
     }
   };
@@ -38,8 +42,6 @@ const InputArea = ({ onSendMessage }) => {
       <div
         contentEditable="true"
         className="doco-input"
-        rows={1}
-        type="text"
         ref={docoInputRef}
         placeholder="Message DocoGPT..."
       ></div>

@@ -11,7 +11,7 @@
 }
 
 .doco-input {
-  flex: 1;
+  flex: 0.75 1 75%;
   min-height: 3em;
   max-height: 8em;
   overflow-y: auto;
@@ -21,9 +21,15 @@
   letter-spacing: 1px;
   font-size: 0.9rem;
   padding: 8px 0 8px 16px;
-  border: none;
+  margin-right: 2px;
+  white-space: pre-wrap;
   outline: none;
   resize: none;
+}
+
+.doco-input::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
 }
 
 .doco-input:empty:before {
@@ -39,7 +45,6 @@
   padding: 8px 16px;
   height: 40px;
   color: #000;
-  border: 1px solid #000;
   cursor: pointer;
   display: flex;
   align-items: center;
