@@ -1,4 +1,3 @@
-"use client";
 import { useRef } from "react";
 import "./sidebar.css";
 
@@ -6,15 +5,15 @@ const Sidebar = ({ uploadFile, deleteFile, uploadedFile }) => {
   const fileRef = useRef();
 
   return (
-    <section className="sidebar">
-      <div className="sidebar-wrapper">
-        <div className="name-container">
+    <section className="sidebar-container">
+      <div className="sidebar">
+        <div className="app-name-container">
           <p className="app-name">DocoGPT</p>
         </div>
-        <div className="ingested-document">
-          <p className="injested-file">Uploaded File:</p>
+        <div className="uploaded-file">
+          <p className="uploaded-file-title">Uploaded File</p>
           {uploadedFile && (
-            <div className="list-item">
+            <div className="file-item">
               <span className="file-name">{uploadedFile}</span>
               <button className="delete-button" onClick={deleteFile}>
                 <span>x</span>

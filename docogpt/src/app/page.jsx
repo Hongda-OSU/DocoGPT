@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import Sidebar from "@/components/sidebar/Sidebar";
-import Modal from "@/components/modal/Modal";
+import axios from "axios";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import ErrorModal from "@/components/ErrorModal/ErrorModal";
 import ChatHistory from "@/components/chat-history/ChatHistory";
 import InputArea from "@/components/input-area/InputArea";
 import styles from "./home.module.css";
-
 
 export default function Home() {
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -13,7 +13,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const uploadFile = (e) => {
+  const uploadFile = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -23,7 +23,23 @@ export default function Home() {
           setErrorMessage("You can only upload one file at a time.");
           setIsModalOpen(true);
         } else {
-          setUploadedFile(file.name);
+          const formData = new FormData();
+          formData.append("file", file);
+          try {
+            const response = await axios.post(
+              "http://127.0.0.1:8000/uploadfile/",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
+            setUploadedFile(response.data.filename);
+          } catch (error) {
+            setErrorMessage("Failed to upload file.");
+            setIsModalOpen(true);
+          }
         }
       } else {
         setErrorMessage("Only PDF format supported.");
@@ -33,15 +49,35 @@ export default function Home() {
     e.target.value = null;
   };
 
-  const handleSendMessage = (message) => {
+  const handleSendMessage = async (message) => {
     setChatHistory((history) => [...history, { type: "user", text: message }]);
 
-    setTimeout(() => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/chat/",
+        { query: message },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const messages = response.data.data;
+      const answer = messages[messages.length - 1];
+
+      setChatHistory((history) => [...history, { type: "bot", text: answer }]);
+    } catch (error) {
+      console.error("Error while fetching response from DocoGPT:", error);
       setChatHistory((history) => [
         ...history,
-        { type: "bot", text: "This is a predefined response from DocoGPT." },
+        { type: "bot", text: "Failed to get response from DocoGPT." },
       ]);
-    }, 1000);
+    }
   };
 
   const onModalClose = () => {
@@ -50,8 +86,8 @@ export default function Home() {
   };
 
   return (
-    <main className={styles.container}>
-      <Modal
+    <main className={styles["doco-container"]}>
+      <ErrorModal
         isOpen={isModalOpen}
         onClose={onModalClose}
         errorMessage={errorMessage}
