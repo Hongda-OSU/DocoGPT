@@ -1,40 +1,44 @@
-.modal-container {
+.bg {
   position: absolute;
   width: 100%;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(1px);
   display: flex;
   z-index: 999;
 }
 
 .modal {
-  width: 300px;
-  height: 200px;
+  min-width: 420px;
+  max-width: 600px;
+  min-height: 300px;
   display: flex;
   flex-flow: column nowrap;
   margin: auto;
   background: #f8f8f8;
   border: 1px solid #000;
-  padding: 1em 1.5em;
+  padding: 2em 1.5em;
 }
 
 .modal-header {
   width: 100%;
+  padding-bottom: 1em;
   height: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.modal-header-message {
+.modal-header-title {
   width: fit-content;
   overflow-wrap: break-word;
   color: #000;
   font-family: "NeueMontreal-Light", sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 800;
+  text-shadow: 0px 0.1px, 0.1px 0px, 0.1px 0.1px;
   letter-spacing: 0.5px;
+  margin-left: 1em;
 }
 
 .modal-close-button {
@@ -43,26 +47,30 @@
   overflow-wrap: break-word;
   color: #f00;
   font-family: "NeueMontreal-Light", sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 800;
-  letter-spacing: 0.5px;
-  margin-right: 1em;
-}
-
-.modal-content {
-  width: 100%;
-  height: 100%;
-  display: flex;
+  text-shadow: 0px 0.5px, 0.5px 0px, 0.5px 0.5px;
+  margin-right: 1.5em;
 }
 
 .modal-content-message {
+  padding: 0.1em 1.5em;
+  margin: auto;
   width: fit-content;
   overflow-wrap: break-word;
   color: #000;
   font-family: "NeueMontreal-Light", sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 800;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-  margin: auto;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.modal-content-indented {
+  padding: 0.1em 3em;
+}
+
+.modal-content-note {
+  margin-top: 20px !important;
+  font-weight: bold;
 }
