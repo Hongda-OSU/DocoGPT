@@ -19,7 +19,11 @@ const Chat = ({ chatHistory }) => {
         message.type === "user" ? (
           <ChatUser key={index} message={message.text} />
         ) : (
-          <ChatBot key={index} message={message.text} />
+          <ChatBot
+            key={index}
+            message={message.text}
+            isLoading={message.isLoading}
+          />
         )
       )}
     </div>

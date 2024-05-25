@@ -3,23 +3,24 @@ import { useEffect, useRef } from "react";
 import "./input.css";
 
 const Input = ({ onSendMessage }) => {
-  const wrapperRef = useRef(null);
   const docoInputRef = useRef(null);
 
   useEffect(() => {
-    const resizeTextarea = () => {
-      if (wrapperRef.current && docoInputRef.current) {
-        const wrapperWidth = wrapperRef.current.offsetWidth;
-        docoInputRef.current.style.width = `${wrapperWidth * 0.8}px`;
-      }
+    const handlePaste = (e) => {
+      e.preventDefault();
+      const text = e.clipboardData.getData("text/plain");
+      document.execCommand("insertText", false, text);
     };
 
-    resizeTextarea();
-
-    window.addEventListener("resize", resizeTextarea);
+    const inputElement = docoInputRef.current;
+    if (inputElement) {
+      inputElement.addEventListener("paste", handlePaste);
+    }
 
     return () => {
-      window.removeEventListener("resize", resizeTextarea);
+      if (inputElement) {
+        inputElement.removeEventListener("paste", handlePaste);
+      }
     };
   }, []);
 
@@ -38,16 +39,18 @@ const Input = ({ onSendMessage }) => {
   };
 
   return (
-    <div className="input-area-wrapper" ref={wrapperRef}>
-      <div
-        contentEditable="true"
-        className="doco-input"
-        ref={docoInputRef}
-        placeholder="Message DocoGPT..."
-      ></div>
-      <button className="send-button" onClick={handleSendMessage}>
-        <span className="button-text">Send</span>
-      </button>
+    <div className="input-container">
+      <div className="input">
+        <div
+          contentEditable="true"
+          className="doco-input"
+          ref={docoInputRef}
+          placeholder="Message DocoGPT..."
+        ></div>
+        <button className="send-button" onClick={handleSendMessage}>
+          <span className="send-button-text">Send</span>
+        </button>
+      </div>
     </div>
   );
 };

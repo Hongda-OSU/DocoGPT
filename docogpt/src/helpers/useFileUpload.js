@@ -8,7 +8,8 @@ const useFileUpload = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-  const uploadFile = async (file) => {
+  const uploadFile = async (e) => {
+    const file = e.target.files[0];
     if (file) {
       const fileName = file.name;
       const fileExtension = fileName.split(".").pop().toLowerCase();
@@ -41,6 +42,7 @@ const useFileUpload = () => {
         setIsModalOpen(true);
       }
     }
+    e.target.value = null;
   };
 
   const closeModal = () => {

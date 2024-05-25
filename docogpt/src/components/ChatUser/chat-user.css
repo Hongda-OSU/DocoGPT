@@ -1,34 +1,38 @@
-.user-message-container {
+.chat-user {
+  position: relative;
   width: 100%;
   height: auto;
   display: flex;
   flex-flow: column nowrap;
   align-items: end;
-  border-bottom: 1px solid #000;
-  padding: 1.5em 6em;
+  padding: 1.5em 6em 3em 6em;
 }
 
-.user-message-date {
+.chat-user-date {
   width: fit-content;
-  overflow-wrap: break-word;
   color: #999;
   font-family: "NeueMontreal-Light", sans-serif;
-  font-size: 0.8rem;
+  font-size: 1.05rem;
   font-weight: 800;
   letter-spacing: 0.5px;
-  text-align: center;
-  white-space: nowrap;
-  margin-bottom: 2px;
+  text-align: right;
+  margin-bottom: 0.5em;
 }
 
-.user-message-content {
+.chat-user-content {
   width: fit-content;
   color: #000;
   font-family: "NeueMontreal-Light", sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 800;
   letter-spacing: 0.5px;
-  text-align: center;
-  word-wrap: break-word; 
+  text-align: right;
+  word-wrap: break-word;
   word-break: break-word;
+  margin-left: 10%;
+}
+
+.chat-user-span {
+  display: block;
+  text-align: left;
 }

@@ -1,13 +1,22 @@
+import { formatDate } from "@/helpers/date";
 import "./chat-bot.css";
 
-const ChatBot = ({ message }) => {
+const ChatBot = ({ message, isLoading }) => {
+  const formatMessage = message.split("\n").map((line, index) => (
+    <span key={index}>
+      {line}
+      <br />
+    </span>
+  ));
+
   return (
-    <section className="bot-message-container">
-      <p className="bot-message-date">2.03 PM, 15 Nov</p>
-      <p
-        className="bot-message-content"
-        dangerouslySetInnerHTML={{ __html: message.replace(/\n/g, "<br>") }}
-      ></p>
+    <section className="chat-bot">
+      <p className="chat-bot-date">{formatDate()}</p>
+      {isLoading ? (
+        <div class="chat-bot-loader"></div>
+      ) : (
+        <p className="chat-bot-content">{formatMessage}</p>
+      )}
     </section>
   );
 };

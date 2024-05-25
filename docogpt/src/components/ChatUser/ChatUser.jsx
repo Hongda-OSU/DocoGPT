@@ -1,17 +1,18 @@
+import { formatDate } from "@/helpers/date";
 import "./chat-user.css";
 
 const ChatUser = ({ message }) => {
-  const msg = message.split("\n").map((line, idx) => (
-    <span key={idx}>
+  const formatMessage = message.split("\n").map((line, index) => (
+    <span key={index} className="chat-user-span">
       {line}
       <br />
     </span>
   ));
 
   return (
-    <section className="user-message-container">
-      <p className="user-message-date">2.03 PM, 15 Nov</p>
-      <p className="user-message-content">{msg}</p>
+    <section className="chat-user">
+      <p className="chat-user-date">{formatDate()}</p>
+      <p className="chat-user-content">{formatMessage}</p>
     </section>
   );
 };
