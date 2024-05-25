@@ -7,7 +7,8 @@ from config import YAMLConfig
 from parser import TableParser, PDFParser
 from agent import AgentWU
 from tools import *
-from glob import graph
+# from glob import graph
+import glob
 
 # global GRAPH
 # from agent.agent_wu import add
@@ -18,7 +19,7 @@ if __name__ == '__main__':
     conf.load()
     search_agent = AgentWU(config=conf)
     search_agent.stream(keep = True)
-    for i in graph:
+    for i in glob.graph:
         print(len(i))
     
     for i in search_agent.completion(f"Which port the server will start with? The root node is about:\n {graph[-1][0]}"):

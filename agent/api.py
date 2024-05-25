@@ -72,4 +72,10 @@ def chat(query: str):
                 break
             yield str(dict(type="func", content=res))
     
-    return StreamingResponse(chat_stream())
+    def debug(x):
+        for i in x:
+            tmp = eval(i)
+            print(tmp['content'])
+            yield i
+    
+    return StreamingResponse(debug(chat_stream()))
