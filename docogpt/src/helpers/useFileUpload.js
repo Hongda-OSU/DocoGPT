@@ -43,7 +43,7 @@ const useFileUpload = () => {
     }
   };
 
-  const resetModal = () => {
+  const closeModal = () => {
     setModalMessage("");
     setIsModalOpen(false);
   };
@@ -57,7 +57,7 @@ const useFileUpload = () => {
     isModalOpen,
     uploadFile,
     deleteFile,
-    resetModal,
+    closeModal,
   };
 };
 

@@ -1,14 +1,19 @@
 import { useRef } from "react";
 import "./sidebar.css";
 
-const Sidebar = ({ uploadFile, deleteFile, uploadedFile }) => {
+const Sidebar = ({
+  uploadedFile,
+  uploadFile,
+  deleteFile,
+  showInstructionModal,
+}) => {
   const fileRef = useRef();
 
   return (
     <section className="sidebar-container">
       <div className="sidebar">
-        <div className="app-name-container">
-          <p className="app-name">DocoGPT</p>
+        <div className="title-container">
+          <p className="title">DocoGPT</p>
         </div>
         <div className="uploaded-file">
           <p className="uploaded-file-title">Uploaded File</p>
@@ -25,7 +30,7 @@ const Sidebar = ({ uploadFile, deleteFile, uploadedFile }) => {
           className="upload-button"
           onClick={() => fileRef.current.click()}
         >
-          <p className="button-text">Upload a File</p>
+          <p className="sidebar-button-text">Upload a File</p>
           <input
             onChange={uploadFile}
             multiple={false}
@@ -33,6 +38,9 @@ const Sidebar = ({ uploadFile, deleteFile, uploadedFile }) => {
             type="file"
             hidden
           />
+        </button>
+        <button className="instruction-button" onClick={showInstructionModal}>
+          <p className="sidebar-button-text">How to use DocoGPT</p>
         </button>
       </div>
     </section>

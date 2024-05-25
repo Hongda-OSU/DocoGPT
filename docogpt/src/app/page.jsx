@@ -7,6 +7,7 @@ import Modal from "@/components/Modal/Modal";
 import Chat from "@/components/Chat/Chat";
 import Input from "@/components/Input/Input";
 import useFileUpload from "@/helpers/useFileUpload";
+import useInstructionModal from "@/helpers/useInstructionModal";
 import styles from "./home.module.css";
 
 const Loading = dynamic(() => import("@/components/loading/Loading"), {
@@ -17,12 +18,19 @@ export default function Home() {
   const {
     uploadedFile,
     loading,
-    modalMessage,
-    isModalOpen,
+    modalMessage: fileUploadModalMessage,
+    isModalOpen: isFileUploadModalOpen,
+    closeModal: closeFileUploadModal,
     uploadFile,
     deleteFile,
-    resetModal,
   } = useFileUpload();
+
+  const {
+    isModalOpen: isInstructionModalOpen,
+    modalMessage: instructionModalMessage,
+    closeModal: closeInstructionModal,
+    showInstructionModal,
+  } = useInstructionModal();
 
   const [chatHistory, setChatHistory] = useState([]);
 
@@ -65,15 +73,26 @@ export default function Home() {
 
   return (
     <main className={styles["doco-container"]}>
-      {isModalOpen && (
-        <Modal onClose={resetModal} modalMessage={modalMessage} />
+      {isFileUploadModalOpen && (
+        <Modal
+          onClose={closeFileUploadModal}
+          modalMessage={fileUploadModalMessage}
+        />
+      )}
+      {isInstructionModalOpen && (
+        <Modal
+          onClose={closeInstructionModal}
+          modalMessage={instructionModalMessage}
+          format={true}
+        />
       )}
       {loading && <Loading />}
       <div className={styles["doco-gpt"]}>
         <Sidebar
+          uploadedFile={uploadedFile}
           uploadFile={handleFileUpload}
           deleteFile={deleteFile}
-          uploadedFile={uploadedFile}
+          showInstructionModal={showInstructionModal}
         />
         <section className={styles["chat-wrapper"]}>
           <Chat chatHistory={chatHistory} />
