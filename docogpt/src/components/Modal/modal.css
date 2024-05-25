@@ -15,7 +15,7 @@
   display: flex;
   flex-flow: column nowrap;
   margin: auto;
-  background: #f8f8f8;
+  background: #faf9f9;
   border: 1px solid #000;
   padding: 2em 1.5em;
 }
@@ -36,8 +36,9 @@
   font-family: "NeueMontreal-Light", sans-serif;
   font-size: 1.05rem;
   font-weight: 800;
-  text-shadow: 0px 0.1px, 0.1px 0px, 0.1px 0.1px;
   letter-spacing: 0.5px;
+  text-decoration: underline;
+  text-underline-offset: 1px;
   margin-left: 1em;
 }
 

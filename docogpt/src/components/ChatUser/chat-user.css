@@ -19,6 +19,15 @@
   margin-bottom: 0.5em;
 }
 
+/* .chat-user-image {
+  width: 2.5em;
+  height: 2.5em;
+  position: absolute;
+  right: 2em;
+  top: 1.5em;
+  object-fit: cover;
+} */
+
 .chat-user-content {
   width: fit-content;
   color: #000;

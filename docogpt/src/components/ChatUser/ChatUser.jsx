@@ -11,7 +11,7 @@ const ChatUser = ({ message }) => {
 
   return (
     <section className="chat-user">
-      <p className="chat-user-date">{formatDate()}</p>
+      <p className="chat-user-date">{formatDate()}, User</p>
       <p className="chat-user-content">{formatMessage}</p>
     </section>
   );

@@ -8,8 +8,9 @@ Here is how you can use DocoGPT:
   3. Receive answers from DocoGPT based on the content of the PDF.
 
 Notes:
-  - The file should be less than 4 pages; otherwise, it will use too many tokens.
-  - If it's your first time uploading a file, it will take some time to build the document tree.
+  - The file should be less than 4 pages; otherwise, it won't answer because too many tokens will be used.
+  - If it's your first time uploading a file, it will take some time to build the document tree and cache it.
+  - If you want to upload another file, you need to refresh the page and do the above steps again.
 `;
 
 const useInstructionModal = () => {

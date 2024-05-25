@@ -11,9 +11,9 @@ const ChatBot = ({ message, isLoading }) => {
 
   return (
     <section className="chat-bot">
-      <p className="chat-bot-date">{formatDate()}</p>
+      <p className="chat-bot-date">{formatDate()}, DocoGPT</p>
       {isLoading ? (
-        <div class="chat-bot-loader"></div>
+        <div className="chat-bot-loader"></div>
       ) : (
         <p className="chat-bot-content">{formatMessage}</p>
       )}

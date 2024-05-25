@@ -31,7 +31,7 @@ const Modal = ({ onClose, modalMessage, format = false }) => {
         <div className="modal-header">
           <p className="modal-header-title">Message</p>
           <button className="modal-close-button" onClick={onClose}>
-            x
+            X
           </button>
         </div>
         {formatMessage(modalMessage)}

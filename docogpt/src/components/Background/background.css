@@ -1,0 +1,58 @@
+* {
+  overflow: visible;
+}
+
+#svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  animation: fade_in 0.8s linear forwards;
+}
+
+#svg svg {
+  transform-box: border-box;
+  transform-origin: center;
+}
+
+#svg rect {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  animation-iteration-count: infinite;
+  opacity: 0;
+}
+
+#svg path {
+  transform-box: fill-box;
+}
+
+@keyframes fade_in_out {
+  0% {
+    opacity: 0%;
+    transform: translateY(200%) scale(0.7);
+  }
+
+  15%,
+  40% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  55%,
+  100% {
+    opacity: 0%;
+    transform: translateY(-200%) scale(0.7);
+  }
+}
+
+@keyframes fade_in {
+  0%,
+  60% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
