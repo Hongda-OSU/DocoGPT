@@ -15,13 +15,23 @@ def search(query: str, right: str) -> int:
     :param right: Which Node you want enter. right=1 means enter right Node.
     """
     db = Chroma(embedding_function=glob.embd)
-    
-    
-    glob.pos = min(glob.pos * 2 + int(right), len(glob.graph[-1]))
-    db.add_texts([glob.graph[-1][glob.pos]])
-    return [
-        i.page_content for i in db.similarity_search(query, k=3)
-    ]
+    ans = []
+    try:
+        glob.pos = min(glob.pos * 2 + int(right), len(glob.graph[-1]))
+        db.add_texts([glob.graph[-1][glob.pos]])
+        ans = [
+            i.page_content for i in db.similarity_search(query, k=3)
+        ]
+    except Exception as e:
+        pass
+    db.add_texts(glob.text)
+    for i in db.similarity_search(query, k=10):
+        print(i.page_content)
+        if i.page_content not in ans:
+            ans.append(i.page_content)
+        if len(ans) > 6:
+            break
+    return ans
 
 @gptfunction
 def run_python(code: str) -> Any:

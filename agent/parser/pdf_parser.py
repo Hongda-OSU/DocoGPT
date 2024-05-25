@@ -15,11 +15,28 @@ class PDFParser(BaseParser):
         self.agent = agent
         self.max_length = max_length
         self.force_split_length = force_split_length
+        self.text = ""
         super().__init__()
 
-    def process(self, path: Path) -> Graph:
+    @staticmethod
+    def split(data):
+        processed = []
+        tmp = ""
+        for i in data:
+            tmp += i
+            if (l := len(tmp)) > 1024:
+                processed.append[tmp[:1024]]
+                tmp = tmp[1024:]
+                continue
+            if l >= 512:
+                processed.append(tmp)
+                tmp = ""
+        return processed
+    
+    def process(self, path: Path, process: bool = True) -> Graph:
         reader, ans = PdfReader(path), []
         data = "".join([i.extract_text() for i in reader.pages]).splitlines()
+        self.text = PDFParser.split(data)
         processed, tmp = [], ""
         for i in data:
             # print(i)

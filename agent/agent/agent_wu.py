@@ -25,6 +25,17 @@ class AgentWU(BaseAgent):
             self.history.append({"role": "system", "content": prompt.format(**format_args)})
         self.functions = {i['name'] : i['tool'] for i in config.get("tools", [])}
     
+    def clear(self) -> None:
+        history = []
+        for i in self.history:
+            if isinstance(i, ChatCompletionMessage):
+                if i.role == "assistant":
+                    history.append(i)
+            else:
+                if i['role'] == "assistant" or i['role'] == "user" or i['role'] == "system":
+                    history.append(i)
+        self.history = history
+    
     def completion(self, inp: str) -> Union[str, Generator]:
         if inp:
             self.history.append({"role": "user", "content": inp})
@@ -53,10 +64,14 @@ class AgentWU(BaseAgent):
         # else:
         if target.function_call:
             name, args = target.function_call.name, target.function_call.arguments
+            
+                
             func = self.functions.get(name, None)
             if func:
                 try:
                     args = json2dict(args)
+                    if name == "search" and "right" not in args:
+                        args["right"] = "1"
                     content = func(**args)
                     self.history.append({
                         "role": "function", 

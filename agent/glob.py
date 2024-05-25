@@ -11,7 +11,9 @@ global graph
 global embd
 global level
 global pos
+global text
 
+text = ""
 level = 0
 pos = 0
 graph = None

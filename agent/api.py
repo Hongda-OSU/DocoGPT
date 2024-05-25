@@ -1,5 +1,7 @@
 import os
 
+from pypdf import PdfReader
+
 from tools import get_graph
 
 os.environ["OPENAI_API_KEY"] = "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"
@@ -48,13 +50,19 @@ def set_glob(file: Path):
     db = Chroma(embedding_function=glob.embd)
     if f.exists():
         glob.graph = pickle.load(open(f, "rb"))
+        reader = PdfReader(f"data/{file.name}")
+        data = "".join([i.extract_text() for i in reader.pages]).splitlines()
+        glob.text = PDFParser.split(data)
     else:
         conf_s = YAMLConfig(file_path="data/sum.yaml")
         conf_s.load()
         sum_agent = AgentWU(config=conf_s)
         parser = PDFParser(sum_agent)
         glob.graph = parser.from_file(file)
+        glob.text = parser.text
         pickle.dump(glob.graph, open(f"data/{file.name}.pkl", "wb"))
+    for i in glob.text:
+        print(i)
 
 
 @app.post("/uploadfile/")
@@ -105,7 +113,11 @@ def chat(query: Query):
         ANS.append("")
         for j in i:
             ANS[-1] += str(j['content'])
-
+    glob.level = 0
+    glob.pos = 0
+    search_agent.clear()
+    for i in search_agent.history:
+        print(i)
     
 
     return {"data": ANS}
