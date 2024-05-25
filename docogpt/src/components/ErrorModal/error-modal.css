@@ -1,4 +1,4 @@
-#container {
+.modal-container {
   position: absolute;
   width: 100%;
   height: 100vh;
@@ -8,9 +8,9 @@
   z-index: 999;
 }
 
-#modal {
-  width: 360px;
-  height: 240px;
+.modal {
+  width: 300px;
+  height: 200px;
   display: flex;
   flex-flow: column nowrap;
   margin: auto;
@@ -19,7 +19,7 @@
   padding: 1em 1.5em;
 }
 
-#modal-header {
+.modal-header {
   width: 100%;
   height: auto;
   display: flex;
@@ -27,7 +27,7 @@
   align-items: center;
 }
 
-#warning {
+.modal-header-message {
   width: fit-content;
   overflow-wrap: break-word;
   color: #000;
@@ -35,10 +35,9 @@
   font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.5px;
-  white-space: nowrap;
 }
 
-#close-button {
+.modal-close-button {
   background: #0000;
   width: fit-content;
   overflow-wrap: break-word;
@@ -47,17 +46,16 @@
   font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.5px;
-  margin-right: 1.5em;
-  white-space: nowrap;
+  margin-right: 1em;
 }
 
-#modal-content {
+.modal-content {
   width: 100%;
   height: 100%;
   display: flex;
 }
 
-#content {
+.modal-content-message {
   width: fit-content;
   overflow-wrap: break-word;
   color: #000;

@@ -1,0 +1,114 @@
+.sidebar-container {
+  width: 300px;
+  height: 100vh;
+  display: flex;
+  flex-shrink: 0;
+  padding: 20px;
+}
+
+.sidebar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.app-name-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+  border-bottom: 1px solid #000;
+}
+
+.app-name {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-align: center;
+  white-space: nowrap;
+  margin-bottom: 1em;
+}
+
+.uploaded-file {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  margin-top: 1em;
+}
+
+.uploaded-file-title {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-left: 1em;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.file-name {
+  position: relative;
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-left: 2em;
+  margin-top: 1em;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.delete-button {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-right: 1.5em;
+  margin-top: 1.02em;
+  white-space: nowrap;
+}
+
+.upload-button {
+  position: absolute;
+  bottom: 0;
+  background: #0000;
+  margin-bottom: 1.5em;
+  padding: 0.7em 1.5em;
+  user-select: none;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.button-text {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}

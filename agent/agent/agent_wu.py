@@ -58,7 +58,6 @@ class AgentWU(BaseAgent):
                 try:
                     args = json2dict(args)
                     content = func(**args)
-                    print(content)
                     self.history.append({
                         "role": "function", 
                         "name": name,

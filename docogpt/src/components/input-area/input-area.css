@@ -1,0 +1,63 @@
+.input-area-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-height: 8em;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #000;
+  outline: #0000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.doco-input {
+  flex: 0.75 1 75%;
+  min-height: 3em;
+  max-height: 8em;
+  overflow-y: auto;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  padding: 8px 0 8px 16px;
+  margin-right: 2px;
+  white-space: pre-wrap;
+  outline: none;
+  resize: none;
+}
+
+.doco-input::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+.doco-input:empty:before {
+  content: attr(placeholder);
+  letter-spacing: 0.8px;
+  color: #999;
+}
+
+.send-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 8px 16px;
+  height: 40px;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+}
+
+.button-text {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: #000;
+  font-family: "NeueMontreal-Light", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}

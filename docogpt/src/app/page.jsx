@@ -1,32 +1,83 @@
 "use client";
-import { useState, useRef } from "react";
-import Modal from "@/components/modal/Modal";
+import { useState } from "react";
+import axios from "axios";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import ErrorModal from "@/components/ErrorModal/ErrorModal";
+import ChatHistory from "@/components/chat-history/ChatHistory";
+import InputArea from "@/components/input-area/InputArea";
 import styles from "./home.module.css";
 
 export default function Home() {
-  const fileRef = useRef();
-  const allowedExtensions = ["pdf", "docx", "txt"];
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [chatHistory, setChatHistory] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const uploadFile = (e) => {
+  const uploadFile = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const fileName = file.name;
       const fileExtension = fileName.split(".").pop().toLowerCase();
-      if (allowedExtensions.includes(fileExtension)) {
-        setUploadedFiles([...uploadedFiles, file.name]);
+      if (fileExtension === "pdf") {
+        if (uploadedFile) {
+          setErrorMessage("You can only upload one file at a time.");
+          setIsModalOpen(true);
+        } else {
+          const formData = new FormData();
+          formData.append("file", file);
+          try {
+            const response = await axios.post(
+              "http://127.0.0.1:8000/uploadfile/",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
+            setUploadedFile(response.data.filename);
+          } catch (error) {
+            setErrorMessage("Failed to upload file.");
+            setIsModalOpen(true);
+          }
+        }
       } else {
-        setErrorMessage("Only PDF, DOCX, or TXT files are allowed.");
+        setErrorMessage("Only PDF format supported.");
         setIsModalOpen(true);
       }
     }
     e.target.value = null;
   };
 
-  const deleteFile = (fileName) => {
-    setUploadedFiles(uploadedFiles.filter((file) => file !== fileName));
+  const handleSendMessage = async (message) => {
+    setChatHistory((history) => [...history, { type: "user", text: message }]);
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/chat/",
+        { query: message },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const messages = response.data.data;
+      const answer = messages[messages.length - 1];
+
+      setChatHistory((history) => [...history, { type: "bot", text: answer }]);
+    } catch (error) {
+      console.error("Error while fetching response from DocoGPT:", error);
+      setChatHistory((history) => [
+        ...history,
+        { type: "bot", text: "Failed to get response from DocoGPT." },
+      ]);
+    }
   };
 
   const onModalClose = () => {
@@ -35,52 +86,21 @@ export default function Home() {
   };
 
   return (
-    <main id={styles.container}>
-      <Modal
+    <main className={styles["doco-container"]}>
+      <ErrorModal
         isOpen={isModalOpen}
         onClose={onModalClose}
         errorMessage={errorMessage}
       />
-      <div id={styles.wrapper}>
-        <section id={styles.sidebar}>
-          <div className={styles["sidebar-wrapper"]}>
-            <div className={styles["name-container"]}>
-              <p className={styles.name}>DocoGPT</p>
-            </div>
-            <div className={styles["ingested-document"]}>
-              <p className={styles.name2}>Injested Files</p>
-              <ul>
-                {uploadedFiles.map((fileName, idx) => (
-                  <li key={idx} className={styles.listitem}>
-                    <span className={styles.filename}>{fileName}</span>
-                    <button
-                      className={styles["delete-button"]}
-                      onClick={() => deleteFile(fileName)}
-                    >
-                      x
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <button
-              className={styles["upload-button"]}
-              onClick={() => fileRef.current.click()}
-            >
-              <p className={styles["button-text"]}>Upload File</p>
-              <input
-                onChange={uploadFile}
-                multiple={false}
-                ref={fileRef}
-                type="file"
-                hidden
-              />
-            </button>
-          </div>
-        </section>
-        <section id={styles.gpt}>
-          <div id={styles["chat-wrapper"]}></div>
-          <div id={styles["input-wrapper"]}></div>
+      <div className={styles["doco-gpt"]}>
+        <Sidebar
+          uploadFile={uploadFile}
+          deleteFile={() => setUploadedFile(null)}
+          uploadedFile={uploadedFile}
+        />
+        <section className={styles["chat-wrapper"]}>
+          <ChatHistory chatHistory={chatHistory} />
+          <InputArea onSendMessage={handleSendMessage} />
         </section>
       </div>
     </main>
