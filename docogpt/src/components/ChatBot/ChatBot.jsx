@@ -1,6 +1,6 @@
-import "./bot-message.css";
+import "./chat-bot.css";
 
-const BotMessage = ({ message }) => {
+const ChatBot = ({ message }) => {
   return (
     <section className="bot-message-container">
       <p className="bot-message-date">2.03 PM, 15 Nov</p>
@@ -12,4 +12,4 @@ const BotMessage = ({ message }) => {
   );
 };
 
-export default BotMessage;
+export default ChatBot;

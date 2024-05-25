@@ -1,51 +1,34 @@
 "use client";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import axios from "axios";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import ErrorModal from "@/components/ErrorModal/ErrorModal";
-import ChatHistory from "@/components/chat-history/ChatHistory";
-import InputArea from "@/components/input-area/InputArea";
+import Modal from "@/components/Modal/Modal";
+import Chat from "@/components/Chat/Chat";
+import Input from "@/components/Input/Input";
+import useFileUpload from "@/helpers/useFileUpload";
 import styles from "./home.module.css";
 
-export default function Home() {
-  const [uploadedFile, setUploadedFile] = useState(null);
-  const [chatHistory, setChatHistory] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+const Loading = dynamic(() => import("@/components/loading/Loading"), {
+  ssr: false,
+});
 
-  const uploadFile = async (e) => {
+export default function Home() {
+  const {
+    uploadedFile,
+    loading,
+    modalMessage,
+    isModalOpen,
+    uploadFile,
+    deleteFile,
+    resetModal,
+  } = useFileUpload();
+
+  const [chatHistory, setChatHistory] = useState([]);
+
+  const handleFileUpload = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const fileName = file.name;
-      const fileExtension = fileName.split(".").pop().toLowerCase();
-      if (fileExtension === "pdf") {
-        if (uploadedFile) {
-          setErrorMessage("You can only upload one file at a time.");
-          setIsModalOpen(true);
-        } else {
-          const formData = new FormData();
-          formData.append("file", file);
-          try {
-            const response = await axios.post(
-              "http://127.0.0.1:8000/uploadfile/",
-              formData,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                },
-              }
-            );
-            setUploadedFile(response.data.filename);
-          } catch (error) {
-            setErrorMessage("Failed to upload file.");
-            setIsModalOpen(true);
-          }
-        }
-      } else {
-        setErrorMessage("Only PDF format supported.");
-        setIsModalOpen(true);
-      }
-    }
+    uploadFile(file);
     e.target.value = null;
   };
 
@@ -80,27 +63,21 @@ export default function Home() {
     }
   };
 
-  const onModalClose = () => {
-    setErrorMessage("");
-    setIsModalOpen(false);
-  };
-
   return (
     <main className={styles["doco-container"]}>
-      <ErrorModal
-        isOpen={isModalOpen}
-        onClose={onModalClose}
-        errorMessage={errorMessage}
-      />
+      {isModalOpen && (
+        <Modal onClose={resetModal} modalMessage={modalMessage} />
+      )}
+      {loading && <Loading />}
       <div className={styles["doco-gpt"]}>
         <Sidebar
-          uploadFile={uploadFile}
-          deleteFile={() => setUploadedFile(null)}
+          uploadFile={handleFileUpload}
+          deleteFile={deleteFile}
           uploadedFile={uploadedFile}
         />
         <section className={styles["chat-wrapper"]}>
-          <ChatHistory chatHistory={chatHistory} />
-          <InputArea onSendMessage={handleSendMessage} />
+          <Chat chatHistory={chatHistory} />
+          <Input onSendMessage={handleSendMessage} />
         </section>
       </div>
     </main>

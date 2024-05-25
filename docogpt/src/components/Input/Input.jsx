@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useRef } from "react";
-import "./input-area.css";
+import "./input.css";
 
-const InputArea = ({ onSendMessage }) => {
+const Input = ({ onSendMessage }) => {
   const wrapperRef = useRef(null);
   const docoInputRef = useRef(null);
 
@@ -52,4 +52,4 @@ const InputArea = ({ onSendMessage }) => {
   );
 };
 
-export default InputArea;
+export default Input;

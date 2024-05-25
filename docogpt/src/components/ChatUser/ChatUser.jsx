@@ -1,6 +1,6 @@
-import "./user-message.css";
+import "./chat-user.css";
 
-const UserMessage = ({ message }) => {
+const ChatUser = ({ message }) => {
   const msg = message.split("\n").map((line, idx) => (
     <span key={idx}>
       {line}
@@ -16,4 +16,4 @@ const UserMessage = ({ message }) => {
   );
 };
 
-export default UserMessage;
+export default ChatUser;

@@ -1,8 +1,6 @@
-import "./error-modal.css";
+import "./modal.css";
 
-const ErrorModal = ({ isOpen, onClose, errorMessage }) => {
-  if (!isOpen) return null;
-
+const Modal = ({ onClose, modalMessage }) => {
   return (
     <div className="modal-container">
       <div className="modal">
@@ -13,11 +11,11 @@ const ErrorModal = ({ isOpen, onClose, errorMessage }) => {
           </button>
         </div>
         <div className="modal-content">
-          <p className="modal-content-message">{errorMessage}</p>
+          <p className="modal-content-message">{modalMessage}</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default ErrorModal;
+export default Modal;

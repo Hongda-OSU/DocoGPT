@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
-import UserMessage from "../user-message/UserMessage";
-import BotMessage from "../bot-message/BotMessage";
-import "./chat-history.css";
+import ChatUser from "../ChatUser/ChatUser";
+import ChatBot from "../ChatBot/ChatBot";
+import "./chat.css";
 
-const ChatHistory = ({ chatHistory }) => {
+const Chat = ({ chatHistory }) => {
   const chatHistoryRef = useRef(null);
 
   useEffect(() => {
@@ -17,13 +17,13 @@ const ChatHistory = ({ chatHistory }) => {
     <div className="chat-history" ref={chatHistoryRef}>
       {chatHistory.map((message, index) =>
         message.type === "user" ? (
-          <UserMessage key={index} message={message.text} />
+          <ChatUser key={index} message={message.text} />
         ) : (
-          <BotMessage key={index} message={message.text} />
+          <ChatBot key={index} message={message.text} />
         )
       )}
     </div>
   );
 };
 
-export default ChatHistory;
+export default Chat;
