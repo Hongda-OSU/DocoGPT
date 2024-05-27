@@ -49,6 +49,7 @@
   height: 40px;
   cursor: pointer;
   background-color: #0000;
+  outline: 0;
 }
 
 .send-button-text {
