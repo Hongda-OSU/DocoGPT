@@ -4,7 +4,7 @@ from pypdf import PdfReader
 
 from tools import get_graph
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import StreamingResponse
