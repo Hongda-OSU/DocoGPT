@@ -1,7 +1,7 @@
 # DocoGPT
 ### What is DocoGPT?
 - DocoGPT is a platform for document analysis, summarization, and Q&A using Retrieval-Augmented Generation with LLMs.
-- We have build a simple frontend for DocoGPT, below is an example of what DocoGPT achieved. 
+- We also build a simple frontend for DocoGPT, below is an example of what DocoGPT achieved. 
 
 ![](https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img204316.png)
 
