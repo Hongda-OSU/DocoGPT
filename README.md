@@ -15,6 +15,6 @@
 
 ### Known Issues
 - Time-consuming tree construction if the document is big. We recommended document of size 1 - 8 pages.
-- High token consumption, related to the previous issue, also because we use construct binary tree instead of ternary or more.
+- High token consumption, related to the previous issue, also because we use binary tree instead of ternary or more.
 - PDF parsing sometime don't work.
 
