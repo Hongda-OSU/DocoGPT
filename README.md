@@ -14,7 +14,7 @@
 ![](https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img204759.png)
 
 ### Known Issues
-- Time-consuming tree construction (if the document is big). We recommended document of size 1 - 8 pages.
-- High token consumption, related to the previous issue. (also because we use construct binary tree instead of ternary or more)
+- Time-consuming tree construction if the document is big. We recommended document of size 1 - 8 pages.
+- High token consumption, related to the previous issue, also because we use construct binary tree instead of ternary or more.
 - PDF parsing sometime don't work.
 
